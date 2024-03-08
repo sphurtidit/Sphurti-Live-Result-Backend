@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import './Volleyball.css';
+import { useState } from 'react';
+import './Badminton.css';
 
-const Volleyball = () => {
+const Badminton = () => {
   const [viewingBoysMatch, setViewingBoysMatch] = useState(true);
   const [boy1Scores, setboy1Scores] = useState([0,0,0]);
   const [boy2Scores, setboy2Scores] = useState([0,0,0]);
@@ -120,4 +120,4 @@ const Volleyball = () => {
   );
 };
 
-export default Volleyball;
+export default Badminton;
