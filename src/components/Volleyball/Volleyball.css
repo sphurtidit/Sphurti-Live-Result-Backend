@@ -12,7 +12,7 @@
   td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
   }
   
   th {
@@ -33,5 +33,24 @@
   
   td:first-child {
     font-weight: bold;
+  }
+  .scorecard-buttons {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .scorecard-buttons button {
+    margin-right: 10px;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    background-color: black;
+    color: #fff;
+  }
+  
+  .scorecard-buttons button.active {
+    background-color: #007bff;
+    color: #fff;
   }
   
