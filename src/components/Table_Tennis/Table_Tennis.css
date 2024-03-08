@@ -1,28 +1,56 @@
-.scorecard-container {
-    width: 100%;
-    overflow-x: auto;
+.scorecard {
+    width: 50%;
+    margin: 0 auto;
   }
   
-  .scorecard-table {
+  table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .scorecard-table th,
-  .scorecard-table td {
+  th,
+  td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
   }
   
-  .scorecard-table th {
+  th {
     background-color: #f2f2f2;
   }
   
-  .scorecard-table td input {
+  input {
     width: 50px;
-    text-align: center;
+    padding: 5px;
+    margin-right: 5px;
+  }
+  
+  tr {
+    background-color: #f2f2f2;
     color: black;
-    background-color: rgb(255, 255, 255);
+  }
+
+  
+  td:first-child {
+    font-weight: bold;
+  }
+  .scorecard-buttons {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .scorecard-buttons button {
+    margin-right: 10px;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    background-color: black;
+    color: #fff;
+  }
+  
+  .scorecard-buttons button.active {
+    background-color: #007bff;
+    color: #fff;
   }
   

@@ -15,8 +15,8 @@ function Navbar() {
         <nav>
             <div className="main-nav" ref={navRef}>
                 <div className="center-button">
-                    <Link to="home" offset={-80}><li onClick={showNav}>VolleyBall</li></Link>
-                    <Link to="msg" offset={-80}><li onClick={showNav}>Table Tennis</li></Link>
+                    <Link to="../Volleyball/Volleyball.jsx" offset={-80}><li onClick={showNav}>VolleyBall</li></Link>
+                    <Link to="../Table_Tennis/Table_Tennis.jsx" offset={-80}><li onClick={showNav}>Table Tennis</li></Link>
                     <Link to="nav-sports" offset={-80}><li onClick={showNav}>Badminton</li></Link>
                     <Link to="acc-section" offset={-80}><li onClick={showNav}>BasketBall</li></Link>
                     <Link to="team-nav" offset={-80}><li onClick={showNav}>Cricket</li></Link> 
