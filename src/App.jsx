@@ -3,9 +3,10 @@ import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import Volleyball from './components/Volleyball/Volleyball'
 import Table_Tennis from './components/Table_Tennis/Table_Tennis'
-import { getDocs, collection} from 'firebase/firestore';
+import { getDocs, collection } from 'firebase/firestore';
 import { db } from './firebase';
 import MatchList from './components/list/list';
+import { set } from 'firebase/database'
 
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
   const [bdBoy, setBdBoy] = useState();
   const [bdGirl, setBdGirl] = useState();
   const [cricket, setCricket] = useState();
+  const [list, setList] = useState([]);
+  const [index, setIndex] = useState(0);
 
 
   useEffect(() => {
@@ -79,22 +82,53 @@ function App() {
       });
     }).then(() => {
       setLoading(false);
-    console.log('done');
+      setList(volleyball);
+      console.log('done');
     });
-    return () => {}
+    return () => { }
   }, []);
 
+  const handleButtonClick = (index) => {
+    console.log(index);
+  }
 
   return (
     <>
       <div className="background-container">
         {loading ? <div className='loading'>
-        <h1>Loading...</h1>
-        </div> : 
-        <>
-          <Navbar />
-          <MatchList list={football} />
-        </>
+          <h1>Loading...</h1>
+        </div> :
+          <>
+            <div className="navbar">
+              <ul>
+                <li><button onClick={() => {
+                  setList(volleyball)
+                  setIndex(0)
+                }}>VolleyBall</button></li>
+                <li><button onClick={() => {
+                  setList(football)
+                  setIndex(1)
+                }}>Football</button></li>
+                <li><button onClick={() => {
+                  setList(basketballBoys)
+                  setIndex(2)
+                }}>Basketball</button></li>
+                <li><button onClick={() => {
+                  setList(tableTennisBoys)
+                  setIndex(3)
+                }}>Table Tennis</button></li>
+                <li><button onClick={() => {
+                  setList(bdBoy)
+                  setIndex(4)
+                }}>Badminton</button></li>
+                <li><button onClick={() => {
+                  setList(tableTennisMixed)
+                  setIndex(5)
+                }}>Cricket</button></li>
+              </ul>
+            </div>
+            <MatchList list={list} />
+          </>
         }
       </div>
     </>
