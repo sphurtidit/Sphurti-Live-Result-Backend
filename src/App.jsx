@@ -1,17 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
-import Volleyball from "./components/Volleyball/Volleyball";
-import Table_Tennis from "./components/Table_Tennis/Table_Tennis";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase";
 import MatchList from "./components/list/list";
-import { set } from "firebase/database";
-
-import Cricket from "./components/Cricket/Cricket";
-import Badminton from "./components/Badminton/Badminton";
-import Basketball from "./components/Basketball/Basketball";
-import Football from "./components/Football/Football";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -26,6 +17,45 @@ function App() {
   const [cricket, setCricket] = useState();
   const [list, setList] = useState([]);
   const [index, setIndex] = useState(0);
+
+  const navJSON = [
+    {
+      name: "Cricket",
+      data: cricket,
+    },
+    {
+      name: "Football",
+      data: football,
+    },
+    {
+      name: "VolleyBall",
+      data: volleyball,
+    },
+    {
+      name: "Basketball Boys",
+      data: basketballBoys,
+    },
+    {
+      name: "Basketball Girls",
+      data: basketballGirls,
+    },
+    {
+      name: "Table Tennis Boys",
+      data: tableTennisBoys,
+    },
+    {
+      name: "Table Tennis Mixed",
+      data: tableTennisMixed,
+    },
+    {
+      name: "Badminton Boys",
+      data: bdBoy,
+    },
+    {
+      name: "Badminton Girls",
+      data: bdGirl,
+    }
+  ];
 
   useEffect(() => {
     getDocs(collection(db, "fixtures/Volleyball/boys"))
@@ -44,7 +74,6 @@ function App() {
         setLoading(true);
       })
       .then(() => {
-        // console.log(volleyball);
         getDocs(collection(db, "fixtures/Footbatt/boys")).then(
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
@@ -75,7 +104,7 @@ function App() {
             console.log(temp);
             setTableMixed(temp);
             setLoading(true);
-            
+
           }
         );
       })
@@ -102,6 +131,17 @@ function App() {
         );
       })
       .then(() => {
+        getDocs(collection(db, "fixtures/Cricket/boys")).then(
+          (querySnapshot) => {
+            const temp = querySnapshot.docs.map((doc) => doc.data());
+            temp.sort((a, b) => a.order - b.order);
+            console.log(temp);
+            setCricket(temp);
+            setLoading(true);
+          }
+        );
+      })
+      .then(() => {
         getDocs(collection(db, "fixtures/basketball/boys")).then(
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
@@ -122,11 +162,10 @@ function App() {
           })
           .then(() => {
             setLoading(false);
-
             console.log("done");
           });
       });
-    return () => {};
+    return () => { };
   }, []);
 
   return (
@@ -140,66 +179,21 @@ function App() {
           <>
             <div className="navbar">
               <ul>
-                <li>
-                  <button
-                    onClick={() => {
-                      setList(volleyball);
-                      setIndex(0);
-                    }}
-                  >
-                    VolleyBall
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      setList(football);
-                      setIndex(1);
-                    }}
-                  >
-                    Football
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      setList(basketballBoys);
-                      setIndex(2);
-                    }}
-                  >
-                    Basketball
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      setList(tableTennisBoys);
-                      setIndex(3);
-                    }}
-                  >
-                    Table Tennis
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      setList(bdBoy);
-                      setIndex(4);
-                    }}
-                  >
-                    Badminton
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      setList(tableTennisMixed);
-                      setIndex(5);
-                    }}
-                  >
-                    Cricket
-                  </button>
-                </li>
+                {
+                  navJSON.map((item, i) => {
+                    return (
+                      <li key={i}>
+                        <button
+                          onClick={() => {
+                            setList(item.data);
+                            setIndex(i);
+                          }}>
+                          {item.name}
+                        </button>
+                      </li>
+                    );
+                  })
+                }
               </ul>
             </div>
             <MatchList list={list} />
