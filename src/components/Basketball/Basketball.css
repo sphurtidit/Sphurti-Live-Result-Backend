@@ -1,0 +1,63 @@
+/* .basketball {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: aqua;
+  }
+  
+  .team {
+    width: 200px;
+  }
+  
+  .scores {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .quarter {
+    padding: 5px;
+  }
+  
+  .total {
+    padding: 5px;
+    font-weight: bold;
+  }
+   */
+
+   .basketball {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content:space-evenly;
+    margin-top: 20px;
+    background-color: rgb(40, 159, 159);
+  }
+  
+  .team {
+    text-align: center;
+  }
+  
+  .score-container {
+    display: flex;
+  }
+
+  .quarter {
+    padding: 5px;
+    margin: 4px 0;
+  }
+  .scores {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .scores input {
+    margin-bottom: 10px;
+    width: 50px;
+    text-align: center;
+  }
+  
+  .total {
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  

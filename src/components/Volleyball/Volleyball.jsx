@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import  {useState } from 'react';
 import './Volleyball.css';
 
 const Volleyball = () => {
@@ -68,8 +68,8 @@ const Volleyball = () => {
               <td key={index}>
                 <input
                   type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player1')}
+                  value={score || ''}
+                  onChange={handleScoreChange(index, 'player1')}
                 />
               </td>
             ))}
@@ -80,8 +80,8 @@ const Volleyball = () => {
               <td key={index}>
                 <input
                   type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player2')}
+                  value={score || ''}
+                  onChange={handleScoreChange(index, 'player2')}
                 />
               </td>
             ))}
@@ -95,8 +95,8 @@ const Volleyball = () => {
               <td key={index}>
                 <input
                   type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player1')}
+                  value={score || ''}
+                  onChange={handleScoreChange(index, 'player1')}
                 />
               </td>
             ))}
@@ -107,8 +107,8 @@ const Volleyball = () => {
               <td key={index}>
                 <input
                   type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player2')}
+                  value={score || ''}
+                  onChange={handleScoreChange(index, 'player2')}
                 />
               </td>
             ))}

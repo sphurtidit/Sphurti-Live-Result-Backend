@@ -1,31 +1,3 @@
-// import {useState} from 'react';
-// import './Cricket.css';
-
-// const Cricket = ({ teamName1, teamName2, tossWinner, tossChoice, scoreTeam1, scoreTeam2, wicketsTeam1, wicketsTeam2 }) => {
-// //   const [scoreTeam1, setScoreTeam1] = useState(0);
-// //   const [scoreTeam2, setScoreTeam2] = useState(0);
-
-//   return (
-//     <div className="scorecard">
-//       <h2 className="toss-statement">{tossWinner} has won the toss and will {tossChoice} first</h2>
-//       <div className="team-score">
-//         <div className="team-name">
-//           <h2>{teamName1}</h2>
-//         </div>
-//         <input type="text" value={scoreTeam1} onChange={(e) => scoreTeam1 = e.target.value} /> / <input type="text" value={wicketsTeam1} onChange={(e) => wicketsTeam1 = e.target.value} />
-//       </div>
-//       <div className="team-score">
-//         <div className="team-name">
-//           <h2>{teamName2}</h2>
-//         </div>
-//         <input type="text" value={scoreTeam2} onChange={(e) => scoreTeam2 = e.target.value} /> / <input type="text" value={wicketsTeam2} onChange={(e) => wicketsTeam2 = e.target.value} />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Cricket;
-
 import React from 'react';
 import './Cricket.css';
 

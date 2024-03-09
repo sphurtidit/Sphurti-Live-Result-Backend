@@ -39,7 +39,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
-    background-color: rgb(46, 49, 49);
+    background-color: aqua;
   }
   
   .toss-statement {
@@ -50,7 +50,7 @@
   .team-score {
     display: flex;
     justify-content: space-between;
-   items: center;
+    text-align: center;
     width: 50%;
     margin-bottom: 20px;
   }

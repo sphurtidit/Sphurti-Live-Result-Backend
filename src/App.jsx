@@ -5,14 +5,19 @@ import Volleyball from './components/Volleyball/Volleyball'
 import Table_Tennis from './components/Table_Tennis/Table_Tennis'
 import Cricket from './components/Cricket/Cricket'
 import Badminton from './components/Badminton/Badminton'
+import Basketball from './components/Basketball/Basketball'
+import Football from './components/Football/Football'
 
 function App() {
+
+  //Table Tennis
   const [count, setCount] = useState(0);
   const boysPlayer1Name = "RD";
   const boysPlayer2Name = "Rudra";
   const mixedPlayer1Name = "djkshdjk";
   const mixedPlayer2Name = "yuhbg";
 
+  //Cricket
   const teamName1 = 'Team A';
   const teamName2 = 'Team B';
   const tossWinner = 'Team A';
@@ -21,6 +26,14 @@ function App() {
   const scoreTeam2 = '120';
   const wicketsTeam1 = '6';
   const wicketsTeam2 = '8';
+
+  //Basketball
+  const teamAName = 'Team A';
+  const teamBName = 'Team B';
+
+  //Football
+  const teamA = 'Team C';
+  const teamB = 'Team D';
 
 
   return (
@@ -39,6 +52,8 @@ function App() {
          scoreTeam2={scoreTeam2}
          wicketsTeam1={wicketsTeam1}
          wicketsTeam2={wicketsTeam2}/>
+         <Basketball teamAName={teamAName} teamBName={teamBName}/>
+         <Football teamA={teamA} teamB={teamB}/>
       </div>
     </>
   )

@@ -68,8 +68,8 @@ const Badminton = () => {
               <td key={index}>
                 <input
                   type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player1')}
+                  value={score || ''}
+                  onChange={handleScoreChange(index, 'player1')}
                 />
               </td>
             ))}
