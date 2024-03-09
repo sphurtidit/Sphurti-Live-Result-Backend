@@ -1,16 +1,13 @@
 import React from 'react';
 
-const MatchList = ({list}) => {
+const MatchList = ({list, sportIndex}) => {
 
     return (
         <div>
           {list.map((item, index) => {
             return (
               <div key={index}>
-                <h1>{item.team1} vs {item.team2}</h1>
-                
-                {/* <p>{item.date}</p>
-                <p>{item.time}</p> */}
+                <p>{item.team1} vs {item.team2}</p>
               </div>
             )
           })

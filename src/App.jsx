@@ -196,7 +196,7 @@ function App() {
                 }
               </ul>
             </div>
-            <MatchList list={list} />
+            <MatchList list={list} sportIndex={index} />
           </>
         )}
       </div>
