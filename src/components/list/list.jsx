@@ -9,8 +9,6 @@ import Volleyball from '../Volleyball/Volleyball';
 
 const MatchList = ({ list, sportIndex }) => {
 
-  // const componentList = [Cricket, Football, Volleyball, Basketball, Basketball, TableTennis, TableTennis, Badminton, Badminton]
-
   return (
     <div className='listContainer'>
       {list.map((item, index) => {
@@ -29,8 +27,8 @@ const MatchList = ({ list, sportIndex }) => {
               sportIndex == 0? <Cricket matchData={item} /> : 
               sportIndex == 1? <Football matchData={item} /> :
               sportIndex == 2? <Volleyball matchData={item} /> :
-              sportIndex == 3? <Basketball item={item} /> :
-              sportIndex == 4? <Basketball item={item} /> :
+              sportIndex == 3? <Basketball matchData={item} type = "boys"/> :
+              sportIndex == 4? <Basketball matchData={item} type = "girls"/> :
               sportIndex == 5? <TableTennis item={item} /> :
               sportIndex == 6? <TableTennis item={item} /> :
               sportIndex == 7? <Badminton item={item} /> :
