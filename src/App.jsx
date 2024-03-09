@@ -92,10 +92,6 @@ function App() {
     return () => { }
   }, []);
 
-  const handleButtonClick = (index) => {
-    console.log(index);
-  }
-
   return (
     <>
       <div className="background-container">
@@ -139,4 +135,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
