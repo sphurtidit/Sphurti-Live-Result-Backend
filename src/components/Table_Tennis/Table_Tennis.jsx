@@ -2,12 +2,12 @@ import { useState } from 'react';
 import './Table_Tennis.css';
 
 
-const Table_Tennis = ({ boy1Name, boy2Name, girl1Name, girl2Name }) => {
+const Table_Tennis = ({ boy1Name, boy2Name, mixed1Name, mixed2Name }) => {
   const [viewingBoysMatch, setViewingBoysMatch] = useState(true);
   const [boy1Scores, setboy1Scores] = useState([0,0,0,0,0]);
   const [boy2Scores, setboy2Scores] = useState([0,0,0,0,0]);
-  const [girl1Scores, setgirl1Scores] = useState([0,0,0]);
-  const [girl2Scores, setgirl2Scores] = useState([0,0,0]);
+  const [mixed1Scores, setmixed1Scores] = useState([0,0,0]);
+  const [mixed2Scores, setmixed2Scores] = useState([0,0,0]);
 
 
   const handleViewBoysMatch = () => {
@@ -34,9 +34,9 @@ const Table_Tennis = ({ boy1Name, boy2Name, girl1Name, girl2Name }) => {
     }
     else{
       if (player === 'player1') {
-        setgirl1Scores(newScores);
+        setmixed1Scores(newScores);
       } else {
-        setgirl2Scores(newScores);
+        setmixed2Scores(newScores);
       }
     }
   };
@@ -48,7 +48,7 @@ const Table_Tennis = ({ boy1Name, boy2Name, girl1Name, girl2Name }) => {
           Boys Match
         </button>
         <button onClick={handleViewGirlsMatch} className={!viewingBoysMatch ? 'active' : ''}>
-          Girls Match
+          Mixed Match
         </button>
       </div>
       <table className="scorecard-table">
@@ -69,7 +69,7 @@ const Table_Tennis = ({ boy1Name, boy2Name, girl1Name, girl2Name }) => {
                           {boy1Scores.map((score, index) => (
                               <td key={index}>
                                   <input
-                                      type="number"
+                                      type="text"
                                       value={score || ''}
                                       onChange={handleScoreChange(index, 'player1')} />
                               </td>
@@ -80,7 +80,7 @@ const Table_Tennis = ({ boy1Name, boy2Name, girl1Name, girl2Name }) => {
                           {boy2Scores.map((score, index) => (
                               <td key={index}>
                                   <input
-                                      type="number"
+                                      type="text"
                                       value={score || ''}
                                       onChange={handleScoreChange(index, 'player2')} />
                               </td>
@@ -97,23 +97,23 @@ const Table_Tennis = ({ boy1Name, boy2Name, girl1Name, girl2Name }) => {
                   </thead><tbody>
 
                           <tr>
-                              <td>{girl1Name}</td>
+                              <td>{mixed1Name}</td>
 
-                              {girl1Scores.map((score, index) => (
+                              {mixed1Scores.map((score, index) => (
                                   <td key={index}>
                                       <input
-                                          type="number"
+                                          type="text"
                                           value={score || ''}
                                           onChange={handleScoreChange(index, 'player1')} />
                                   </td>
                               ))}
                           </tr>
                           <tr>
-                              <td>{girl2Name}</td>
-                              {girl2Scores.map((score, index) => (
+                              <td>{mixed2Name}</td>
+                              {mixed2Scores.map((score, index) => (
                                   <td key={index}>
                                       <input
-                                          type="number"
+                                          type="text"
                                           value={score || ''}
                                           onChange={handleScoreChange(index, 'player2')} />
                                   </td>

@@ -8,6 +8,10 @@ import { db } from './firebase';
 import MatchList from './components/list/list';
 import { set } from 'firebase/database'
 
+import Cricket from './components/Cricket/Cricket'
+import Badminton from './components/Badminton/Badminton'
+import Basketball from './components/Basketball/Basketball'
+import Football from './components/Football/Football'
 
 function App() {
   const [loading, setLoading] = useState(true);

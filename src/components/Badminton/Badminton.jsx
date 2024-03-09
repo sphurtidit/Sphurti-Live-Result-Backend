@@ -1,7 +1,7 @@
-import  {useState } from 'react';
-import './Volleyball.css';
+import { useState } from 'react';
+import './Badminton.css';
 
-const Volleyball = () => {
+const Badminton = () => {
   const [viewingBoysMatch, setViewingBoysMatch] = useState(true);
   const [boy1Scores, setboy1Scores] = useState([0,0,0]);
   const [boy2Scores, setboy2Scores] = useState([0,0,0]);
@@ -80,8 +80,8 @@ const Volleyball = () => {
               <td key={index}>
                 <input
                   type="text"
-                  value={score || ''}
-                  onChange={handleScoreChange(index, 'player2')}
+                  // value={score || ''}
+                  // onChange={handleScoreChange(index, 'player2')}
                 />
               </td>
             ))}
@@ -95,8 +95,8 @@ const Volleyball = () => {
               <td key={index}>
                 <input
                   type="text"
-                  value={score || ''}
-                  onChange={handleScoreChange(index, 'player1')}
+                  // value={score || ''}
+                  // onChange={handleScoreChange(index, 'player1')}
                 />
               </td>
             ))}
@@ -107,8 +107,8 @@ const Volleyball = () => {
               <td key={index}>
                 <input
                   type="text"
-                  value={score || ''}
-                  onChange={handleScoreChange(index, 'player2')}
+                  // value={score || ''}
+                  // onChange={handleScoreChange(index, 'player2')}
                 />
               </td>
             ))}
@@ -120,4 +120,4 @@ const Volleyball = () => {
   );
 };
 
-export default Volleyball;
+export default Badminton;
