@@ -3,8 +3,10 @@ import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import Volleyball from './components/Volleyball/Volleyball'
 import Table_Tennis from './components/Table_Tennis/Table_Tennis'
-import { getDocs, collection, getDoc, doc, query } from 'firebase/firestore';
+import { getDocs, collection} from 'firebase/firestore';
 import { db } from './firebase';
+import MatchList from './components/list/list';
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -71,18 +73,23 @@ function App() {
       console.log(temp);
       setBasketballGirls(temp);
     });
-
-    return () => {
-      setLoading(false);
-    }
+    setLoading(false);
+    console.log('done');
+    return () => {}
   }, []);
 
 
   return (
     <>
       <div className="background-container">
-        <Navbar />
-        <Volleyball />
+        {loading ? <div className='loading'>
+        <h1>Loading...</h1>
+        </div> : 
+        <>
+          <Navbar />
+          <MatchList list={football} />
+        </>
+        }
       </div>
     </>
   )
