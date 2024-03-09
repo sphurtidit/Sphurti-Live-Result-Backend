@@ -62,14 +62,14 @@ function App() {
       .then((querySnapshot) => {
         setLoading(true);
         const temp = querySnapshot.docs.map((doc) => {
-          console.log(doc.data);
+          // console.log(doc.data);
           return doc.data();
         });
         temp.sort((a, b) => a.order - b.order);
-        console.log(temp);
+        // console.log(temp);
         setVolleyball(temp);
         setList(temp);
-        console.log(volleyball)
+        // console.log(volleyball)
 
         setLoading(true);
       })
@@ -78,7 +78,7 @@ function App() {
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setFootball(temp);
             setLoading(true);
           }
@@ -90,7 +90,7 @@ function App() {
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setTableTennisBoys(temp);
             setLoading(true);
           }
@@ -101,7 +101,7 @@ function App() {
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setTableMixed(temp);
             setLoading(true);
 
@@ -113,7 +113,7 @@ function App() {
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setBdBoy(temp);
             setLoading(true);
           }
@@ -124,7 +124,7 @@ function App() {
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setBdGirl(temp);
             setLoading(true);
             // console.log(temp[0].id);
@@ -136,7 +136,7 @@ function App() {
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setCricket(temp);
             setLoading(true);
           }
@@ -147,7 +147,7 @@ function App() {
           (querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setBasketballBoys(temp);
             setLoading(true);
           }
@@ -158,12 +158,12 @@ function App() {
           .then((querySnapshot) => {
             const temp = querySnapshot.docs.map((doc) => doc.data());
             temp.sort((a, b) => a.order - b.order);
-            console.log(temp);
+            // console.log(temp);
             setBasketballGirls(temp);
           })
           .then(() => {
             setLoading(false);
-            console.log("done");
+            // console.log("done");
           });
       });
     return () => { };

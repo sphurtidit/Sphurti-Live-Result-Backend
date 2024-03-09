@@ -9,7 +9,7 @@ import Volleyball from '../Volleyball/Volleyball';
 
 const MatchList = ({ list, sportIndex }) => {
 
-  const componentList = [Cricket, Football, Volleyball, Basketball, Basketball, TableTennis, TableTennis, Badminton, Badminton]
+  // const componentList = [Cricket, Football, Volleyball, Basketball, Basketball, TableTennis, TableTennis, Badminton, Badminton]
 
   return (
     <div className='listContainer'>
@@ -25,7 +25,18 @@ const MatchList = ({ list, sportIndex }) => {
                   }
                 }>{!displayFull ? 'EDIT NOW' : 'Close'}</button>
             </div>
-            {displayFull ? <Football matchData={item}/> : <></>}
+            {displayFull ? 
+              sportIndex == 0? <Cricket matchData={item} /> : 
+              sportIndex == 1? <Football matchData={item} /> :
+              sportIndex == 2? <Volleyball matchData={item} /> :
+              sportIndex == 3? <Basketball item={item} /> :
+              sportIndex == 4? <Basketball item={item} /> :
+              sportIndex == 5? <TableTennis item={item} /> :
+              sportIndex == 6? <TableTennis item={item} /> :
+              sportIndex == 7? <Badminton item={item} /> :
+              sportIndex == 8? <Badminton item={item} /> :
+              <></>
+             : <></>}
           </div>
         )
       })

@@ -1,121 +1,123 @@
 import  {useState } from 'react';
 import './Volleyball.css';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
-const Volleyball = () => {
-  const [viewingBoysMatch, setViewingBoysMatch] = useState(true);
-  const [boy1Scores, setboy1Scores] = useState([0,0,0]);
-  const [boy2Scores, setboy2Scores] = useState([0,0,0]);
-  const [girl1Scores, setgirl1Scores] = useState([0,0,0]);
-  const [girl2Scores, setgirl2Scores] = useState([0,0,0]);
-
-
-  const handleViewBoysMatch = () => {
-    setViewingBoysMatch(true);
-    // setPlayer1Scores([0,0,0]);
-    // setPlayer2Scores([0,0,0]);
-  };
-
-  const handleViewGirlsMatch = () => {
-    setViewingBoysMatch(false);
-    // setPlayer1Scores([0,0,0]);
-    // setPlayer2Scores([0,0,0]);
-  };
+const Volleyball = ({matchData}) => {
+  const [lock, setLock] = useState(matchData.locked);
+  const [team1Scores, setTeam1Scores] = useState([
+    matchData.set1['team1'],
+    matchData.set2['team1'],
+    matchData.set3['team1']]);
+  const [team2Scores, setTeam2Scores] = useState([
+    matchData.set1['team2'],
+    matchData.set2['team2'],
+    matchData.set3['team2']]);
 
   const handleScoreChange = (index, player) => (e) => {
-    const newScores = [...(player === 'player1' ? boy1Scores : boy2Scores)];
+    const newScores = [...(player === 'player1' ? team1Scores : team2Scores)];
     newScores[index] = parseInt(e.target.value) || 0;
-    if(viewingBoysMatch){
-      if (player === 'player1') {
-        setboy1Scores(newScores);
-      } else {
-        setboy2Scores(newScores);
-      }
-    }
-    else{
-      if (player === 'player1') {
-        setgirl1Scores(newScores);
-      } else {
-        setgirl2Scores(newScores);
-      }
+    if (player === 'player1') {
+      setTeam1Scores(newScores);
+    } else {
+      setTeam2Scores(newScores);
     }
   };
 
   return (
     <div className="scorecard-container">
-      <div className="scorecard-buttons">
-        <button onClick={handleViewBoysMatch} className={viewingBoysMatch ? 'active' : ''}>
-          Boys Match
-        </button>
-        <button onClick={handleViewGirlsMatch} className={!viewingBoysMatch ? 'active' : ''}>
-          Girls Match
-        </button>
-      </div>
       <table className="scorecard-table">
         <thead>
           <tr>
-            <th>Player</th>
+            <th>Team</th>
             <th>Set 1</th>
             <th>Set 2</th>
             <th>Set 3</th>
           </tr>
         </thead>
-        {viewingBoysMatch? <tbody>
-          
+        <tbody>
           <tr>
-            <td>Player 1</td>
-            
-            {boy1Scores.map((score, index) => (
+            <td>{matchData.team1}</td>
+            {team1Scores.map((score, index) => (
               <td key={index}>
-                <input
+                {lock ? score : <input
                   type="text"
                   value={score || ''}
                   onChange={handleScoreChange(index, 'player1')}
-                />
+                />}
               </td>
             ))}
           </tr>
           <tr>
-            <td>Player 2</td>
-            {boy2Scores.map((score, index) => (
+            <td>{matchData.team2}</td>
+            {team2Scores.map((score, index) => (
               <td key={index}>
-                <input
+                {lock ? score : <input
                   type="text"
                   value={score || ''}
                   onChange={handleScoreChange(index, 'player2')}
-                />
+                />}
               </td>
             ))}
           </tr>
-        </tbody>: <tbody>
-          
-          <tr>
-            <td>Player 1</td>
-            
-            {girl1Scores.map((score, index) => (
-              <td key={index}>
-                <input
-                  type="text"
-                  value={score || ''}
-                  onChange={handleScoreChange(index, 'player1')}
-                />
-              </td>
-            ))}
-          </tr>
-          <tr>
-            <td>Player 2</td>
-            {girl2Scores.map((score, index) => (
-              <td key={index}>
-                <input
-                  type="text"
-                  value={score || ''}
-                  onChange={handleScoreChange(index, 'player2')}
-                />
-              </td>
-            ))}
-          </tr>
-        </tbody>}
-       
+        </tbody>
       </table>
+      {lock ? <></> : <div>
+        <button onClick={
+          () => {
+            console.log(matchData.id);
+            const docRef = doc(db, "fixtures/Volleyball/boys", matchData.id);
+            updateDoc(docRef, {
+              set1: {
+                team1: team1Scores[0],
+                team2: team2Scores[0]
+              },
+              set2: {
+                team1: team1Scores[1],
+                team2: team2Scores[1]
+              },
+              set3: {
+                team1: team1Scores[2],
+                team2: team2Scores[2]
+              },
+            }).then(() => {
+              // ADD SUCCESS TOAST HERE
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              // ADD FAILURE TOAST HERE
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Update</button>
+        <button onClick={
+          () => {
+            console.log(matchData.id);
+            const docRef = doc(db, "fixtures/Volleyball/boys", matchData.id);
+            updateDoc(docRef, {
+              set1: {
+                team1: team1Scores[0],
+                team2: team2Scores[0]
+              },
+              set2: {
+                team1: team1Scores[1],
+                team2: team2Scores[1]
+              },
+              set3: {
+                team1: team1Scores[2],
+                team2: team2Scores[2]
+              },
+              locked: true
+            }).then(() => {
+              // ADD SUCCESS TOAST HERE
+              console.log("Document successfully updated!");
+              setLock(true);
+            }).catch((error) => {
+              // ADD FAILURE TOAST HERE
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Update and Lock</button>
+      </div>}
     </div>
   );
 };
