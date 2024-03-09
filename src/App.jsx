@@ -127,6 +127,7 @@ function App() {
             console.log(temp);
             setBdGirl(temp);
             setLoading(true);
+            // console.log(temp[0].id);
           }
         );
       })

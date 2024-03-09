@@ -1,0 +1,24 @@
+.heading-title{
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.matchTitle{
+    font-weight: 700;
+}
+
+.matchTile button{
+    background-color: #f8f8f8;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.listContainer{
+    margin-top: 100px;
+    width: 100vw;
+}

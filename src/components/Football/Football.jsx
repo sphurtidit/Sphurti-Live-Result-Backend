@@ -2,7 +2,7 @@ import {useState} from 'react';
 import './Football.css';
 
 
-const Football = ({teamA, teamB}) => {
+const Football = () => {
     const [teamAGoals, setTeamAGoals] = useState(0);
     const [teamBGoals, setTeamBGoals] = useState(0);
     const [teamAEvents, setTeamAEvents] = useState([]);
@@ -38,7 +38,7 @@ const Football = ({teamA, teamB}) => {
     return (
         <div className="football">
         <div className="teams">
-          <h2>{teamA}</h2>
+          <h2>Team A</h2>
           <div className="goals">{teamAGoals}</div>
           <div>
             <input
@@ -70,7 +70,7 @@ const Football = ({teamA, teamB}) => {
         </div>
 
         <div className="teams">
-          <h2>{teamB}</h2>
+          <h2>Team B</h2>
           <div className="goals">{teamBGoals}</div>
           <div>
             <input
