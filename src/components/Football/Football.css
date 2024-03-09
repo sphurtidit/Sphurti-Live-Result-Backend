@@ -29,4 +29,12 @@
   button {
     margin-bottom: 5px;
   }
+
+  .footballOverAllcontainer{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
   

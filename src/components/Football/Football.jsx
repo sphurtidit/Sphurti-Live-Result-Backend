@@ -1,103 +1,165 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import './Football.css';
+import { db } from '../../firebase';
+import 'firebase/firestore';
+import { doc, updateDoc } from "firebase/firestore";
 
 
-const Football = () => {
-    const [teamAGoals, setTeamAGoals] = useState(0);
-    const [teamBGoals, setTeamBGoals] = useState(0);
-    const [teamAEvents, setTeamAEvents] = useState([]);
-    const [teamBEvents, setTeamBEvents] = useState([]);
-    const [newEvent, setNewEvent] = useState("");
-    const [newEventTime, setNewEventTime] = useState("");
-    const [addButtonDisabled, setAddButtonDisabled] = useState(true);
+const Football = ({ matchData }) => {
+  const [newGoalA, setNewGoalA] = useState("");
+  const [newGoalTimeA, setNewGoalTimeA] = useState("");
+  const [addButtonDisabledA, setAddButtonDisabledA] = useState(true);
+  const [goal1, setGoal1] = useState(matchData.goalTeam1);
 
-    const handleAddGoal = (team) => {
-        if (team ==='A') {
-            setTeamAGoals(prevGoals => prevGoals + 1);
-            setTeamAEvents([...teamAEvents, {player: newEvent, time: newEventTime}]);
-        }
-        else if (team === 'B') {
-            setTeamBGoals(prevGoals => prevGoals +1)
-            setTeamBEvents([...teamBEvents, {player: newEvent, time: newEventTime}]);
-        }
-        setNewEvent("");
-        setNewEventTime("");
-        setAddButtonDisabled(true);
-    };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        if (name === "newEvent") {
-          setNewEvent(value);
-        } else if (name === "newEventTime") {
-          setNewEventTime(value);
-        }
-        setAddButtonDisabled(!(newEvent && newEventTime));
-      };
+  const [newGoalB, setNewGoalB] = useState("");
+  const [newGoalTimeB, setNewGoalTimeB] = useState("");
+  const [addButtonDisabledB, setAddButtonDisabledB] = useState(true);
+  const [goal2, setGoal2] = useState(matchData.goalTeam2);
 
-    return (
-        <div className="football">
+  const handleAddGoalA = () => {
+    console.log(newGoalA)
+    console.log(newGoalTimeA)
+    const newGoal = { ...goal1, [newGoalTimeA]: newGoalA };
+    setGoal1(newGoal);
+    setNewGoalA("");
+    setNewGoalTimeA("");
+    setAddButtonDisabledA(true);
+  };
+
+  const handleAddGoalB = () => {
+    console.log(addButtonDisabledB)
+    console.log(newGoalB)
+    console.log(newGoalTimeB)
+    const newGoal = { ...goal2, [newGoalTimeB]: newGoalB };
+    console.log(newGoal)
+    setGoal2(newGoal);
+    setNewGoalB("");
+    setNewGoalTimeB("");
+    setAddButtonDisabledB(true);
+  };
+
+  const handleInputChangeA = (e) => {
+    const { name, value } = e.target;
+    if (name === "newEvent") {
+      setNewGoalA(value);
+    } else if (name === "newEventTime") {
+      setNewGoalTimeA(value);
+    }
+    setAddButtonDisabledA(!(newGoalA && newGoalTimeA));
+  };
+
+  const handleInputChangeB = (e) => {
+    const { name, value } = e.target;
+    if (name === "newEvent") {
+      setNewGoalB(value);
+    } else if (name === "newEventTime") {
+      setNewGoalTimeB(value);
+    }
+    setAddButtonDisabledB(!(newGoalB && newGoalTimeB));
+    console.log(addButtonDisabledB)
+  };
+
+  return (
+    <div className='footballOverAllcontainer'>
+      <div className="football">
         <div className="teams">
-          <h2>Team A</h2>
-          <div className="goals">{teamAGoals}</div>
-          <div>
+          <h2>{matchData.team1}</h2>
+          <div className="goals">{Object.entries(goal1).length}</div>
+          {matchData.locked ? <div>Match Locked</div> : <div>
             <input
-            className="name"
+              className="name"
               type="text"
               name="newEvent"
               placeholder="Player Name"
-              value={newEvent}
-              onChange={handleInputChange}
+              value={newGoalA}
+              onChange={handleInputChangeA}
             />
             <input
               type="text"
               name="newEventTime"
               placeholder="Time"
-              value={newEventTime}
-              onChange={handleInputChange}
+              value={newGoalTimeA}
+              onChange={handleInputChangeA}
             />
-            <button onClick={() => handleAddGoal('A')}  disabled={addButtonDisabled}>Add Goal</button>
-          </div>
+            <button onClick={() => handleAddGoalA()} disabled={addButtonDisabledA}>Add Goal</button>
+          </div>}
           <div className="events">
-            {teamAEvents.map((event, index) => (
-              <div key={index}>{`${event.player} (${event.time})`}</div>
-            ))}
+            {
+              Object.keys(goal1).map((key, value) =>
+                <div key={value}>{`${goal1[key]} - ${key}`}</div>)
+            }
           </div>
         </div>
 
         <div className="teams">
-            <h2>VS</h2>
+          <h2>VS</h2>
         </div>
 
         <div className="teams">
-          <h2>Team B</h2>
-          <div className="goals">{teamBGoals}</div>
-          <div>
+          <h2>{matchData.team2}</h2>
+          <div className="goals">{Object.entries(goal2).length}</div>
+          {matchData.locked ? <div>Match Locked</div> : <div>
             <input
-             className="name"
+              className="name"
               type="text"
               name="newEvent"
               placeholder="Player Name"
-              value={newEvent}
-              onChange={handleInputChange}
+              value={newGoalB}
+              onChange={handleInputChangeB}
             />
             <input
               type="text"
               name="newEventTime"
               placeholder="Time"
-              value={newEventTime}
-              onChange={handleInputChange}
+              value={newGoalTimeB}
+              onChange={handleInputChangeB}
             />
-            <button onClick={() => handleAddGoal('B')} disabled={addButtonDisabled}>Add Goal</button>
-          </div>
+            <button onClick={() => handleAddGoalB()} disabled={addButtonDisabledB}>Add Goal</button>
+          </div>}
           <div className="events">
-            {teamBEvents.map((event, index) => (
-              <div key={index}>{`${event.player} (${event.time})`}</div>
-            ))}
+            {
+              Object.keys(goal2).map((key, value) =>
+                <div key={value}>{`${goal2[key]} - ${key}`}</div>)
+            }
           </div>
         </div>
       </div>
-    );
+      {matchData.locked ? <></> : <div>
+        <button onClick={
+          () => {
+            const docRef = doc(db, "fixtures/Footbatt/boys", matchData.id);
+            updateDoc(docRef, {
+              goalTeam1: goal1,
+              goalTeam2: goal2,
+            }).then(() => {
+              // ADD SUCCESS TOAST HERE
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              // ADD FAILURE TOAST HERE
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Update</button>
+        <button onClick={
+          () => {
+            const docRef = doc(db, "fixtures/Footbatt/boys", matchData.id);
+            updateDoc(docRef, {
+              goalTeam1: goal1,
+              goalTeam2: goal2,
+              locked: true
+            }).then(() => {
+              // ADD SUCCESS TOAST HERE
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              // ADD FAILURE TOAST HERE
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Update and Lock</button>
+      </div>}
+    </div>
+  );
 };
 
 export default Football;
