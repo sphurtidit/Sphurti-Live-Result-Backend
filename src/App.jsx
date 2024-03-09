@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
 
-    const volleyFix = getDocs(collection(db, "fixtures/Volleyball/boys")).then((querySnapshot) => {
+    getDocs(collection(db, "fixtures/Volleyball/boys")).then((querySnapshot) => {
       const temp = querySnapshot.docs.map((doc) => doc.data());
       temp.sort((a, b) => a.order - b.order);
       console.log(temp);
@@ -35,46 +35,52 @@ function App() {
       temp.sort((a, b) => a.order - b.order);
       console.log(temp);
       setFootball(temp);
-    });
-    getDocs(collection(db, "fixtures/Table Tennis/boys")).then((querySnapshot) => {
-      const temp = querySnapshot.docs.map((doc) => doc.data());
-      temp.sort((a, b) => a.order - b.order);
-      console.log(temp);
-      setTableTennisBoys(temp);
-    });
-    getDocs(collection(db, "fixtures/Table Tennis/mixed")).then((querySnapshot) => {
-      const temp = querySnapshot.docs.map((doc) => doc.data());
-      temp.sort((a, b) => a.order - b.order);
-      console.log(temp);
-      setTableMixed(temp);
-    });
-    getDocs(collection(db, "fixtures/badminton/boys")).then((querySnapshot) => {
-      const temp = querySnapshot.docs.map((doc) => doc.data());
-      temp.sort((a, b) => a.order - b.order);
-      console.log(temp);
-      setBdBoy(temp);
-    });
-    getDocs(collection(db, "fixtures/badminton/girls")).then((querySnapshot) => {
-      const temp = querySnapshot.docs.map((doc) => doc.data());
-      temp.sort((a, b) => a.order - b.order);
-      console.log(temp);
-      setBdGirl(temp);
-    });
-    getDocs(collection(db, "fixtures/basketball/boys")).then((querySnapshot) => {
-      const temp = querySnapshot.docs.map((doc) => doc.data());
-      temp.sort((a, b) => a.order - b.order);
-      console.log(temp);
-      setBasketballBoys(temp);
-    });
-
-    getDocs(collection(db, "fixtures/basketball/girls")).then((querySnapshot) => {
-      const temp = querySnapshot.docs.map((doc) => doc.data());
-      temp.sort((a, b) => a.order - b.order);
-      console.log(temp);
-      setBasketballGirls(temp);
-    });
-    setLoading(false);
+    }).then(() => {
+      getDocs(collection(db, "fixtures/Table Tennis/boys")).then((querySnapshot) => {
+        const temp = querySnapshot.docs.map((doc) => doc.data());
+        temp.sort((a, b) => a.order - b.order);
+        console.log(temp);
+        setTableTennisBoys(temp);
+      });
+    }).then(() => {
+      getDocs(collection(db, "fixtures/Table Tennis/mixed")).then((querySnapshot) => {
+        const temp = querySnapshot.docs.map((doc) => doc.data());
+        temp.sort((a, b) => a.order - b.order);
+        console.log(temp);
+        setTableMixed(temp);
+      });
+    }).then(() => {
+      getDocs(collection(db, "fixtures/badminton/boys")).then((querySnapshot) => {
+        const temp = querySnapshot.docs.map((doc) => doc.data());
+        temp.sort((a, b) => a.order - b.order);
+        console.log(temp);
+        setBdBoy(temp);
+      });
+    }).then(() => {
+      getDocs(collection(db, "fixtures/badminton/girls")).then((querySnapshot) => {
+        const temp = querySnapshot.docs.map((doc) => doc.data());
+        temp.sort((a, b) => a.order - b.order);
+        console.log(temp);
+        setBdGirl(temp);
+      });
+    }).then(() => {
+      getDocs(collection(db, "fixtures/basketball/boys")).then((querySnapshot) => {
+        const temp = querySnapshot.docs.map((doc) => doc.data());
+        temp.sort((a, b) => a.order - b.order);
+        console.log(temp);
+        setBasketballBoys(temp);
+      });
+    }).then(() => {
+      getDocs(collection(db, "fixtures/basketball/girls")).then((querySnapshot) => {
+        const temp = querySnapshot.docs.map((doc) => doc.data());
+        temp.sort((a, b) => a.order - b.order);
+        console.log(temp);
+        setBasketballGirls(temp);
+      });
+    }).then(() => {
+      setLoading(false);
     console.log('done');
+    });
     return () => {}
   }, []);
 
