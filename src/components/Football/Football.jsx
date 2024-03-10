@@ -66,7 +66,7 @@ const Football = ({ matchData }) => {
         <div className="teams">
           <h2>{matchData.team1}</h2>
           <div className="goals">{Object.entries(goal1).length}</div>
-          {matchData.locked ? <div>Match Locked</div> : <div>
+          {matchData.locked ? <div className='locked'>Match Locked</div> : <div className='field'>
             <input
               className="name"
               type="text"
@@ -82,7 +82,7 @@ const Football = ({ matchData }) => {
               value={newGoalTimeA}
               onChange={handleInputChangeA}
             />
-            <button onClick={() => handleAddGoalA()} disabled={addButtonDisabledA}>Add Goal</button>
+            <button className="addGoal" onClick={() => handleAddGoalA()} disabled={addButtonDisabledA}>Add Goal</button>
           </div>}
           <div className="events">
             {
@@ -99,7 +99,7 @@ const Football = ({ matchData }) => {
         <div className="teams">
           <h2>{matchData.team2}</h2>
           <div className="goals">{Object.entries(goal2).length}</div>
-          {matchData.locked ? <div>Match Locked</div> : <div>
+          {matchData.locked ? <div className='locked'>Match Locked</div> : <div className='field'>
             <input
               className="name"
               type="text"
@@ -126,7 +126,7 @@ const Football = ({ matchData }) => {
         </div>
       </div>
       {matchData.locked ? <></> : <div>
-        <button onClick={
+        <button className='update' onClick={
           () => {
             const docRef = doc(db, "fixtures/Footbatt/boys", matchData.id);
             updateDoc(docRef, {
@@ -141,7 +141,7 @@ const Football = ({ matchData }) => {
             });
           }
         }>Update</button>
-        <button onClick={
+        <button className='update' onClick={
           () => {
             const docRef = doc(db, "fixtures/Footbatt/boys", matchData.id);
             updateDoc(docRef, {
