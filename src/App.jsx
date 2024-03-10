@@ -3,6 +3,7 @@ import "./App.css";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase";
 import MatchList from "./components/list/list";
+import { HiOutlineMenu } from "react-icons/hi";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -17,6 +18,7 @@ function App() {
   const [cricket, setCricket] = useState();
   const [list, setList] = useState([]);
   const [index, setIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   const navJSON = [
     {
@@ -178,7 +180,7 @@ function App() {
           </div>
         ) : (
           <>
-            <div className="navbar">
+            {/* <div className="navbar">
               <ul>
                 {
                   navJSON.map((item, i) => {
@@ -196,7 +198,28 @@ function App() {
                   })
                 }
               </ul>
-            </div>
+            </div> */}
+            <div className="navbar">
+      <HiOutlineMenu onClick={() => setIsOpen(!isOpen)} />
+      {isOpen && (
+        <ul className="flex flex-col items-center">
+          {navJSON.map((item, i) => {
+            return (
+              <li key={i}>
+                <button
+                  onClick={() => {
+                    setList(item.data);
+                    setIndex(i);
+                  }}
+                >
+                  {item.name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
             <MatchList list={list} sportIndex={index} />
           </>
         )}
