@@ -29,10 +29,10 @@ const MatchList = ({ list, sportIndex }) => {
               sportIndex == 2? <Volleyball matchData={item} /> :
               sportIndex == 3? <Basketball matchData={item} type = "boys"/> :
               sportIndex == 4? <Basketball matchData={item} type = "girls"/> :
-              sportIndex == 5? <TableTennis item={item} /> :
-              sportIndex == 6? <TableTennis item={item} /> :
-              sportIndex == 7? <Badminton item={item} /> :
-              sportIndex == 8? <Badminton item={item} /> :
+              sportIndex == 5? <TableTennis matchData={item} type = "boys"/> :
+              sportIndex == 6? <TableTennis matchData={item} type = "mixed"/> :
+              sportIndex == 7? <Badminton matchData={item} type = "boys"/> :
+              sportIndex == 8? <Badminton matchData={item} type = "girls"/> :
               <></>
              : <></>}
           </div>

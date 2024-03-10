@@ -1,121 +1,144 @@
-import { useState } from 'react';
-import './Badminton.css';
+import { useState } from "react";
+import "./Badminton.css";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
-const Badminton = () => {
-  const [viewingBoysMatch, setViewingBoysMatch] = useState(true);
-  const [boy1Scores, setboy1Scores] = useState([0,0,0]);
-  const [boy2Scores, setboy2Scores] = useState([0,0,0]);
-  const [girl1Scores, setgirl1Scores] = useState([0,0,0]);
-  const [girl2Scores, setgirl2Scores] = useState([0,0,0]);
+const Badminton = ({ matchData, type }) => {
+  const [lock, setLock] = useState(matchData.locked);
+  const [teamAScore, setTeamAScore] = useState([
+    matchData.set1['team1'],
+    matchData.set2['team1'],
+    matchData.set3['team1']]);
+  const [teamBScore, setTeamBScore] = useState([
+    matchData.set1['team2'],
+    matchData.set2['team2'],
+    matchData.set3['team2']]);
 
-
-  const handleViewBoysMatch = () => {
-    setViewingBoysMatch(true);
-    // setPlayer1Scores([0,0,0]);
-    // setPlayer2Scores([0,0,0]);
-  };
-
-  const handleViewGirlsMatch = () => {
-    setViewingBoysMatch(false);
-    // setPlayer1Scores([0,0,0]);
-    // setPlayer2Scores([0,0,0]);
-  };
-
-  const handleScoreChange = (index, player) => (e) => {
-    const newScores = [...(player === 'player1' ? boy1Scores : boy2Scores)];
-    newScores[index] = parseInt(e.target.value) || 0;
-    if(viewingBoysMatch){
-      if (player === 'player1') {
-        setboy1Scores(newScores);
-      } else {
-        setboy2Scores(newScores);
-      }
-    }
-    else{
-      if (player === 'player1') {
-        setgirl1Scores(newScores);
-      } else {
-        setgirl2Scores(newScores);
-      }
+  const updateScore = (team, quarter, value) => {
+    if (value === '') value = 0;
+    else value = parseInt(value);
+    if (team === "A") {
+      const newScore = [...teamAScore];
+      newScore[quarter - 1] = value;
+      setTeamAScore(newScore);
+    } else if (team === "B") {
+      const newScore = [...teamBScore];
+      newScore[quarter - 1] = value;
+      setTeamBScore(newScore);
     }
   };
 
   return (
-    <div className="scorecard-container">
-      <div className="scorecard-buttons">
-        <button onClick={handleViewBoysMatch} className={viewingBoysMatch ? 'active' : ''}>
-          Boys Match
-        </button>
-        <button onClick={handleViewGirlsMatch} className={!viewingBoysMatch ? 'active' : ''}>
-          Girls Match
-        </button>
+    <div className="basketball-container">
+      <div className="basketball">
+        <div className="team">
+          <h2>{matchData.team1}</h2>
+          <div className='score-container'>
+            <div className="scores">
+              {
+                [1, 2, 3].map((quarter, index) => (
+                  <>
+                    <div className="sc-bb-tile">
+                      <div className="quarter">{`Q${quarter}`}</div>
+                      {lock? teamAScore[index] : <input
+                        key={index}
+                        type="text"
+                        value={teamAScore[index]}
+                        onChange={(e) =>
+                          updateScore("A", quarter, e.target.value)
+                        }
+                      />}
+                    </div>
+                  </>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+        <div className="team">
+          <h3>VS</h3>
+        </div>
+        <div className="team">
+          <h2>{matchData.team2}</h2>
+          <div className='score-container'>
+            <div className="scores">
+              {
+                [1, 2, 3].map((quarter, index) => (
+                  <>
+                    <div className="sc-bb-tile">
+                      <div className="quarter">{`Q${quarter}`}</div>
+                      {lock? teamBScore[index] : <input
+                        key={index}
+                        type="text"
+                        value={teamBScore[index]}
+                        onChange={(e) =>
+                          updateScore("B", quarter, e.target.value)
+                        }
+                      />}
+                    </div>
+                  </>
+                ))
+              }
+            </div>
+          </div>
+        </div>
       </div>
-      <table className="scorecard-table">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Set 1</th>
-            <th>Set 2</th>
-            <th>Set 3</th>
-          </tr>
-        </thead>
-        {viewingBoysMatch? <tbody>
-          
-          <tr>
-            <td>Player 1</td>
-            
-            {boy1Scores.map((score, index) => (
-              <td key={index}>
-                <input
-                  type="text"
-                  value={score || ''}
-                  onChange={handleScoreChange(index, 'player1')}
-                />
-              </td>
-            ))}
-          </tr>
-          <tr>
-            <td>Player 2</td>
-            {boy2Scores.map((score, index) => (
-              <td key={index}>
-                <input
-                  type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player2')}
-                />
-              </td>
-            ))}
-          </tr>
-        </tbody>: <tbody>
-          
-          <tr>
-            <td>Player 1</td>
-            
-            {girl1Scores.map((score, index) => (
-              <td key={index}>
-                <input
-                  type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player1')}
-                />
-              </td>
-            ))}
-          </tr>
-          <tr>
-            <td>Player 2</td>
-            {girl2Scores.map((score, index) => (
-              <td key={index}>
-                <input
-                  type="text"
-                  // value={score || ''}
-                  // onChange={handleScoreChange(index, 'player2')}
-                />
-              </td>
-            ))}
-          </tr>
-        </tbody>}
-       
-      </table>
+      {lock ? <></> : <div>
+        <button onClick={
+          () => {
+            console.log(matchData.team1)
+            console.log(matchData.set1['team1'])
+            const docRef = doc(db, `fixtures/badminton/${type}`, matchData.id);
+            updateDoc(docRef, {
+              set1: {
+                team1: teamAScore[0],
+                team2: teamBScore[0]
+              },
+              set2: {
+                team1: teamAScore[1],
+                team2: teamBScore[1]
+              },
+              set3: {
+                team1: teamAScore[2],
+                team2: teamBScore[2]
+              }
+            }).then(() => {
+              // ADD SUCCESS TOAST HERE
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              // ADD FAILURE TOAST HERE
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Update</button>
+        <button onClick={
+          () => {
+            const docRef = doc(db, `fixtures/badminton/${type}`, matchData.id);
+            updateDoc(docRef, {
+              set1: {
+                team1: teamAScore[0],
+                team2: teamBScore[0]
+              },
+              set2: {
+                team1: teamAScore[1],
+                team2: teamBScore[1]
+              },
+              set3: {
+                team1: teamAScore[2],
+                team2: teamBScore[2]
+              },
+              locked: true
+            }).then(() => {
+              // ADD SUCCESS TOAST HERE
+              console.log("Document successfully updated!");
+              setLock(true);
+            }).catch((error) => {
+              // ADD FAILURE TOAST HERE
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Update and Lock</button>
+      </div>}
     </div>
   );
 };
