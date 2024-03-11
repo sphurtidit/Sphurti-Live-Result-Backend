@@ -2,6 +2,9 @@ import { useState } from 'react';
 import './Cricket.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Cricket = ({ matchData }) => {
   const docRef = doc(db, `fixtures/Cricket/boys`, matchData.id);
@@ -54,11 +57,11 @@ const Cricket = ({ matchData }) => {
           toss: tossWinner,
           choose: tossChoice
         }).then(() => {
-          // ADD SUCCESS TOAST HERE
+          toast.success("Document successfully updated!");
           setTossDecided(true);
           console.log("Document successfully updated!");
         }).catch((error) => {
-          // ADD FAILURE TOAST HERE
+          toast.error("Error updating document!");
           console.error("Error updating document: ", error);
         });
       }}>Submit</button>}
@@ -104,10 +107,10 @@ const Cricket = ({ matchData }) => {
               team1Over: oversTeam1,
               team2Over: oversTeam2
             }).then(() => {
-              // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
-              // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });            
         
@@ -124,10 +127,10 @@ const Cricket = ({ matchData }) => {
               team2Over: oversTeam2,
               firstInningComplete: true
             }).then(() => {
-              // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
-              // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });
           }
@@ -143,16 +146,17 @@ const Cricket = ({ matchData }) => {
               team2Over: oversTeam2,
               locked: true
             }).then(() => {
-              // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
               setLock(true);
             }).catch((error) => {
-              // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });        
           }
         }>Update and Lock</button>
       </div>}
+      <ToastContainer />
     </div>
     // <div className="scorecard">
     //   <h2 className="toss-statement">
