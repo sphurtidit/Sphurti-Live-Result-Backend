@@ -18,6 +18,7 @@ function App() {
   const [cricket, setCricket] = useState();
   const [list, setList] = useState([]);
   const [index, setIndex] = useState(0);
+  const [name, setName] = useState("Cricket");
 
   const navJSON = [
     {
@@ -69,7 +70,7 @@ function App() {
         temp.sort((a, b) => a.order - b.order);
         // console.log(temp);
         setVolleyball(temp);
-        setList(temp);
+        
         // console.log(volleyball)
 
         setLoading(true);
@@ -140,6 +141,7 @@ function App() {
             // console.log(temp);
             setCricket(temp);
             setLoading(true);
+            setList(temp);
           }
         );
       })
@@ -189,6 +191,7 @@ function App() {
                           onClick={() => {
                             setList(item.data);
                             setIndex(i);
+                            setName(item.name);
                           }}>
                           {item.name}
                         </button>
@@ -198,7 +201,7 @@ function App() {
                 }
               </ul>
             </div>
-            <MatchList list={list} sportIndex={index} />
+            <MatchList list={list} sportIndex={index} name={name}/>
           </>
         )}
       </div>

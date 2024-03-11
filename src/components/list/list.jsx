@@ -7,7 +7,7 @@ import Football from "../Football/Football";
 import TableTennis from "../Table_Tennis/Table_Tennis";
 import Volleyball from "../Volleyball/Volleyball";
 
-const MatchList = ({ list, sportIndex }) => {
+const MatchList = ({ list, sportIndex, name}) => {
   const [displayFull, setDisplayFull] = useState({});
   useEffect(() => {
     setDisplayFull({})
@@ -19,6 +19,7 @@ const MatchList = ({ list, sportIndex }) => {
   
   return (
     <div className="listContainer">
+      <h1>{name}</h1>
       {list.map((item, index) => {
         return (
           <div key={index} className="matchTile">
