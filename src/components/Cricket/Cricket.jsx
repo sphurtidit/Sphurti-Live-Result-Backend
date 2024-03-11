@@ -97,7 +97,7 @@ const Cricket = ({ matchData }) => {
       </div>
       </div>
       {lock ? <></> : <div>
-      <button onClick={
+      <button id='btn' onClick={
           () => {
             updateDoc(docRef, {
               team1Score: scoreTeam1,
@@ -116,7 +116,7 @@ const Cricket = ({ matchData }) => {
         
           }
         }>First Complete</button>
-        <button onClick={
+        <button id='btn' onClick={
           () => {
             updateDoc(docRef, {
               team1Score: scoreTeam1,
@@ -135,7 +135,7 @@ const Cricket = ({ matchData }) => {
             });
           }
         }>Update</button>
-        <button onClick={
+        <button id='btn' onClick={
           () => {
             updateDoc(docRef, {
               team1Score: scoreTeam1,
