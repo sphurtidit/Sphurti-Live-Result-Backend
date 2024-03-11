@@ -4,6 +4,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase";
 import MatchList from "./components/list/list";
 
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [football, setFootball] = useState();

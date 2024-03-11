@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./Basketball.css";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Basketball = ({ matchData, type }) => {
   const [lock, setLock] = useState(matchData.locked);
@@ -121,10 +124,10 @@ const Basketball = ({ matchData, type }) => {
                 team2: teamBScore[3]
               },
             }).then(() => {
-              // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
-              // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });
           }
@@ -151,16 +154,17 @@ const Basketball = ({ matchData, type }) => {
               },
               locked: true
             }).then(() => {
-              // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
               setLock(true);
             }).catch((error) => {
-              // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });
           }
         }>Update and Lock</button>
       </div>}
+      <ToastContainer />
     </div>
   );
 };

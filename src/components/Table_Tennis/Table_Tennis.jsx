@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./Table_Tennis.css";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const TableTennis = ({ matchData, type }) => {
   const [lock, setLock] = useState(matchData.locked);
@@ -120,10 +123,10 @@ const TableTennis = ({ matchData, type }) => {
                   team2: teamBScore[4]
                 }
               }).then(() => {
-                // ADD SUCCESS TOAST HERE
+                toast.success("Document successfully updated!");
                 console.log("Document successfully updated!");
               }).catch((error) => {
-                // ADD FAILURE TOAST HERE
+                toast.error("Error updating document!");
                 console.error("Error updating document: ", error);
               });
             } else {
@@ -178,10 +181,10 @@ const TableTennis = ({ matchData, type }) => {
                 locked: true
               }).then(() => {
                 setLock(true);
-                // ADD SUCCESS TOAST HERE
+                toast.success("Document successfully updated!");
                 console.log("Document successfully updated!");
               }).catch((error) => {
-                // ADD FAILURE TOAST HERE
+                toast.error("Error updating document!");
                 console.error("Error updating document: ", error);
               });
             } else {
@@ -200,17 +203,18 @@ const TableTennis = ({ matchData, type }) => {
                 },
                 locked: true
               }).then(() => {
-                // ADD SUCCESS TOAST HERE
+                toast.success("Document successfully updated!");
                 setLock(true);
                 console.log("Document successfully updated!");
               }).catch((error) => {
-                // ADD FAILURE TOAST HERE
+                toast.error("Error updating document!");
                 console.error("Error updating document: ", error);
               });
             }
           }
         }>Update and Lock</button>
       </div>}
+      <ToastContainer />
     </div>
   );
 };

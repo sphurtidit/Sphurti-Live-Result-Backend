@@ -3,6 +3,10 @@ import './Football.css';
 import { db } from '../../firebase';
 import 'firebase/firestore';
 import { doc, updateDoc } from "firebase/firestore";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { Toast } from 'react-toastify/dist/components';
+
 
 
 const Football = ({ matchData }) => {
@@ -133,10 +137,10 @@ const Football = ({ matchData }) => {
               goalTeam1: goal1,
               goalTeam2: goal2,
             }).then(() => {
-              // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
-              // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });
           }
@@ -150,14 +154,17 @@ const Football = ({ matchData }) => {
               locked: true
             }).then(() => {
               // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });
           }
         }>Update and Lock</button>
       </div>}
+      <ToastContainer />
     </div>
   );
 };

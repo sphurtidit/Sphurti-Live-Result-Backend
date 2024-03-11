@@ -1,9 +1,11 @@
-import  {useState } from 'react';
+import { useState } from 'react';
 import './Volleyball.css';
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const Volleyball = ({matchData}) => {
+const Volleyball = ({ matchData }) => {
   const [lock, setLock] = useState(matchData.locked);
   const [team1Scores, setTeam1Scores] = useState([
     matchData.set1['team1'],
@@ -82,9 +84,11 @@ const Volleyball = ({matchData}) => {
               },
             }).then(() => {
               // ADD SUCCESS TOAST HERE
+              toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
               console.error("Error updating document: ", error);
             });
           }
@@ -118,6 +122,7 @@ const Volleyball = ({matchData}) => {
           }
         }>Update and Lock</button>
       </div>}
+      <ToastContainer />
     </div>
   );
 };
