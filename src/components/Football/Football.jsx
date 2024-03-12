@@ -13,12 +13,12 @@ const Football = ({ matchData }) => {
   const [newGoalTimeA, setNewGoalTimeA] = useState("");
   const [addButtonDisabledA, setAddButtonDisabledA] = useState(true);
   const [goal1, setGoal1] = useState(matchData.goalTeam1);
-
-
+  const [locked, setLocked] = useState(matchData.locked);
   const [newGoalB, setNewGoalB] = useState("");
   const [newGoalTimeB, setNewGoalTimeB] = useState("");
   const [addButtonDisabledB, setAddButtonDisabledB] = useState(true);
   const [goal2, setGoal2] = useState(matchData.goalTeam2);
+  const docRef = doc(db, "fixtures/Footbatt/boys", matchData.id);
 
   const handleAddGoalA = () => {
     console.log(newGoalA)
@@ -69,7 +69,7 @@ const Football = ({ matchData }) => {
         <div className="teams">
           <h2>{matchData.team1}</h2>
           <div className="goals">{Object.entries(goal1).length}</div>
-          {matchData.locked ? <div className='locked'>Match Locked</div> : <div className='field'>
+          {locked ? <div className='locked'>Match Locked</div> : <div className='field'>
             <input
               className="name"
               type="text"
@@ -102,7 +102,7 @@ const Football = ({ matchData }) => {
         <div className="teams">
           <h2>{matchData.team2}</h2>
           <div className="goals">{Object.entries(goal2).length}</div>
-          {matchData.locked ? <div className='locked'>Match Locked</div> : <div className='field'>
+          {locked ? <div className='locked'>Match Locked</div> : <div className='field'>
             <input
               className="name"
               type="text"
@@ -128,10 +128,22 @@ const Football = ({ matchData }) => {
           </div>
         </div>
       </div>
-      {matchData.locked ? <></> : <div>
+      {locked ? <></> : <div>
+      <button className='update' onClick={
+          () => {
+            updateDoc(docRef, {
+              start: true,
+            }).then(() => {
+              toast.success("Match Started");
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              toast.error("Error updating document!");
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Start Match</button>
         <button className='update' onClick={
           () => {
-            const docRef = doc(db, "fixtures/Footbatt/boys", matchData.id);
             updateDoc(docRef, {
               goalTeam1: goal1,
               goalTeam2: goal2,
@@ -146,13 +158,14 @@ const Football = ({ matchData }) => {
         }>Update</button>
         <button className='update' onClick={
           () => {
-            const docRef = doc(db, "fixtures/Footbatt/boys", matchData.id);
             updateDoc(docRef, {
               goalTeam1: goal1,
               goalTeam2: goal2,
-              locked: true
+              locked: true,
+              complete: true
             }).then(() => {
               // ADD SUCCESS TOAST HERE
+              setLocked(true);
               toast.success("Document successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
@@ -161,7 +174,7 @@ const Football = ({ matchData }) => {
               console.error("Error updating document: ", error);
             });
           }
-        }>Update and Lock</button>
+        }>Complete and Lock</button>
       </div>}
       <ToastContainer />
     </div>
