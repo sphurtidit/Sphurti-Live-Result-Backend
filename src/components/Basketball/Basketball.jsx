@@ -101,6 +101,22 @@ const Basketball = ({ matchData, type }) => {
         </div>
       </div>
       {lock ? <></> : <div>
+      <button onClick={
+          () => {
+            console.log(matchData.team1)
+            console.log(matchData.set1['team1'])
+            const docRef = doc(db, `fixtures/basketball/${type}`, matchData.id);
+            updateDoc(docRef, {
+              start: true
+            }).then(() => {
+              toast.success("Match Started!");
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              toast.error("Error updating document!");
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Start</button>
         <button onClick={
           () => {
             console.log(matchData.team1)
@@ -124,7 +140,7 @@ const Basketball = ({ matchData, type }) => {
                 team2: teamBScore[3]
               },
             }).then(() => {
-              toast.success("Document successfully updated!");
+              toast.success("Successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               toast.error("Error updating document!");
@@ -152,9 +168,10 @@ const Basketball = ({ matchData, type }) => {
                 team1: teamAScore[3],
                 team2: teamBScore[3]
               },
-              locked: true
+              locked: true,
+              complete: true
             }).then(() => {
-              toast.success("Document successfully updated!");
+              toast.success("Match finished!");
               console.log("Document successfully updated!");
               setLock(true);
             }).catch((error) => {

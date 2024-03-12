@@ -65,6 +65,23 @@ const Volleyball = ({ matchData }) => {
         </tbody>
       </table>
       {lock ? <></> : <div>
+      <button onClick={
+          () => {
+            console.log(matchData.id);
+            const docRef = doc(db, "fixtures/Volleyball/boys", matchData.id);
+            updateDoc(docRef, {
+              start: true
+            }).then(() => {
+              // ADD SUCCESS TOAST HERE
+              toast.success("Match Started!");
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              // ADD FAILURE TOAST HERE
+              toast.error("Error updating document!");
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Start</button>
         <button onClick={
           () => {
             console.log(matchData.id);
@@ -84,7 +101,7 @@ const Volleyball = ({ matchData }) => {
               },
             }).then(() => {
               // ADD SUCCESS TOAST HERE
-              toast.success("Document successfully updated!");
+              toast.success("Match updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               // ADD FAILURE TOAST HERE
@@ -110,10 +127,11 @@ const Volleyball = ({ matchData }) => {
                 team1: team1Scores[2],
                 team2: team2Scores[2]
               },
-              locked: true
+              locked: true, 
+              complete: true
             }).then(() => {
               // ADD SUCCESS TOAST HERE
-              console.log("Document successfully updated!");
+              console.log("Match Completed!");
               setLock(true);
             }).catch((error) => {
               // ADD FAILURE TOAST HERE

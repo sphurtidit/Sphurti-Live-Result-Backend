@@ -6,8 +6,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 const Football = ({ matchData }) => {
   const [newGoalA, setNewGoalA] = useState("");
   const [newGoalTimeA, setNewGoalTimeA] = useState("");
@@ -148,7 +146,7 @@ const Football = ({ matchData }) => {
               goalTeam1: goal1,
               goalTeam2: goal2,
             }).then(() => {
-              toast.success("Document successfully updated!");
+              toast.success("Match updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               toast.error("Error updating document!");
@@ -166,7 +164,7 @@ const Football = ({ matchData }) => {
             }).then(() => {
               // ADD SUCCESS TOAST HERE
               setLocked(true);
-              toast.success("Document successfully updated!");
+              toast.success("Match Completed!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               // ADD FAILURE TOAST HERE

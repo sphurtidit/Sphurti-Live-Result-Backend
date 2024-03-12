@@ -57,7 +57,7 @@ const Cricket = ({ matchData }) => {
           toss: tossWinner,
           choose: tossChoice
         }).then(() => {
-          toast.success("Document successfully updated!");
+          toast.success("Toss updated!");
           setTossDecided(true);
           console.log("Document successfully updated!");
         }).catch((error) => {
@@ -100,6 +100,19 @@ const Cricket = ({ matchData }) => {
       <button id='btn' onClick={
           () => {
             updateDoc(docRef, {
+              start: true
+            }).then(() => {
+              toast.success("Match Started!");
+              console.log("Document successfully updated!");
+            }).catch((error) => {
+              toast.error("Error updating document!");
+              console.error("Error updating document: ", error);
+            });
+          }
+        }>Start Match</button>
+      <button id='btn' onClick={
+          () => {
+            updateDoc(docRef, {
               team1Score: scoreTeam1,
               team2Score: scoreTeam2,
               team1Wicket: wicketsTeam1,
@@ -107,7 +120,7 @@ const Cricket = ({ matchData }) => {
               team1Over: oversTeam1,
               team2Over: oversTeam2
             }).then(() => {
-              toast.success("Document successfully updated!");
+              toast.success("First innings updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               toast.error("Error updating document!");
@@ -115,7 +128,7 @@ const Cricket = ({ matchData }) => {
             });            
         
           }
-        }>First Complete</button>
+        }>First Innings Complete</button>
         <button id='btn' onClick={
           () => {
             updateDoc(docRef, {
@@ -127,7 +140,7 @@ const Cricket = ({ matchData }) => {
               team2Over: oversTeam2,
               firstInningComplete: true
             }).then(() => {
-              toast.success("Document successfully updated!");
+              toast.success("Score successfully updated!");
               console.log("Document successfully updated!");
             }).catch((error) => {
               toast.error("Error updating document!");
@@ -146,7 +159,7 @@ const Cricket = ({ matchData }) => {
               team2Over: oversTeam2,
               locked: true
             }).then(() => {
-              toast.success("Document successfully updated!");
+              toast.success("Match finished!");
               console.log("Document successfully updated!");
               setLock(true);
             }).catch((error) => {

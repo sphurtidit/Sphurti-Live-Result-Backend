@@ -97,6 +97,20 @@ const TableTennis = ({ matchData, type }) => {
         </div>
       </div>
       {lock ? <></> : <div>
+      <button onClick={
+          () => {
+            const docRef = doc(db, `fixtures/Table Tennis/${type}`, matchData.id);
+              updateDoc(docRef, {
+                start: true
+              }).then(() => {
+                toast.success("Match Started!");
+                console.log("Document successfully updated!");
+              }).catch((error) => {
+                toast.error("Error updating document!");
+                console.error("Error updating document: ", error);
+              });
+          }
+        }>Start</button>
         <button onClick={
           () => {
             const docRef = doc(db, `fixtures/Table Tennis/${type}`, matchData.id);
@@ -123,7 +137,7 @@ const TableTennis = ({ matchData, type }) => {
                   team2: teamBScore[4]
                 }
               }).then(() => {
-                toast.success("Document successfully updated!");
+                toast.success("Match updated!");
                 console.log("Document successfully updated!");
               }).catch((error) => {
                 toast.error("Error updating document!");
@@ -145,7 +159,7 @@ const TableTennis = ({ matchData, type }) => {
                 }
               }).then(() => {
                 // ADD SUCCESS TOAST HERE
-                console.log("Document successfully updated!");
+                console.log("Match updated!");
               }).catch((error) => {
                 // ADD FAILURE TOAST HERE
                 console.error("Error updating document: ", error);
@@ -178,10 +192,11 @@ const TableTennis = ({ matchData, type }) => {
                   team1: teamAScore[4],
                   team2: teamBScore[4]
                 },
-                locked: true
+                locked: true,
+                complete: true
               }).then(() => {
                 setLock(true);
-                toast.success("Document successfully updated!");
+                toast.success("Match Completed!");
                 console.log("Document successfully updated!");
               }).catch((error) => {
                 toast.error("Error updating document!");
@@ -201,9 +216,10 @@ const TableTennis = ({ matchData, type }) => {
                   team1: teamAScore[2],
                   team2: teamBScore[2]
                 },
-                locked: true
+                locked: true,
+                complete: true
               }).then(() => {
-                toast.success("Document successfully updated!");
+                toast.success("Match Completed!");
                 setLock(true);
                 console.log("Document successfully updated!");
               }).catch((error) => {
