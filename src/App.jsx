@@ -70,7 +70,7 @@ function App() {
         temp.sort((a, b) => a.order - b.order);
         // console.log(temp);
         setVolleyball(temp);
-        
+
         // console.log(volleyball)
 
         setLoading(true);
@@ -201,7 +201,7 @@ function App() {
                 }
               </ul>
             </div>
-            <MatchList list={list} sportIndex={index} name={name}/>
+            <MatchList list={list} sportIndex={index} name={name} />
           </>
         )}
       </div>
