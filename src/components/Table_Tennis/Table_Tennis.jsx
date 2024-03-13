@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const TableTennis = ({ matchData, type }) => {
+
   const [lock, setLock] = useState(matchData.locked);
   const isBoys = type === 'boys';
   const [teamAScore, setTeamAScore] = useState([
@@ -18,7 +19,7 @@ const TableTennis = ({ matchData, type }) => {
     matchData.set2['team2'],
     matchData.set3['team2']]);
   const sets = [1, 2, 3];
-  if (isBoys) {
+  if (matchData.sets == "5") {
     teamAScore.push(matchData.set4['team1']);
     teamAScore.push(matchData.set5['team1']);
     teamBScore.push(matchData.set4['team2']);
@@ -26,6 +27,14 @@ const TableTennis = ({ matchData, type }) => {
     sets.push(4);
     sets.push(5);
   }
+  // if (isBoys) {
+  //   teamAScore.push(matchData.set4['team1']);
+  //   teamAScore.push(matchData.set5['team1']);
+  //   teamBScore.push(matchData.set4['team2']);
+  //   teamBScore.push(matchData.set5['team2']);
+  //   sets.push(4);
+  //   sets.push(5);
+  // }
 
   const updateScore = (team, quarter, value) => {
     if (value === '') value = 0;
