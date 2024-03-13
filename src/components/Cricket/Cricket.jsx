@@ -89,10 +89,10 @@ const Cricket = ({ matchData }) => {
         <div>Runs</div>{lock ? <div>{scoreTeam1}</div> : <input type="text" value={scoreTeam2} onChange={(e) => setScoreTeam2(e.target.value)} /> }
         </div>
         <div className="input-cricket-field">
-        <div>Wickets</div>{lock ? <div>{scoreTeam1}</div> : <input type="text" value={wicketsTeam2} onChange={(e) => setWicketsTeam2(e.target.value)} />}
+        <div>Wickets</div>{lock ? <div>{wicketsTeam1}</div> : <input type="text" value={wicketsTeam2} onChange={(e) => setWicketsTeam2(e.target.value)} />}
         </div>
         <div className="input-cricket-field">
-        <div>Overs</div>{lock ? <div>{scoreTeam1}</div> : <input type="text" value={oversTeam2} onChange={(e) => setOversTeam2(e.target.value)} />}
+        <div>Overs</div>{lock ? <div>{oversTeam1}</div> : <input type="text" value={oversTeam2} onChange={(e) => setOversTeam2(e.target.value)} />}
         </div>
       </div>
       </div>
